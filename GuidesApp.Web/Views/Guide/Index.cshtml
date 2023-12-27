@@ -1,0 +1,79 @@
+﻿@model List<GuidesApp.Web.Models.GuideDto>
+
+<a asp-action="Create" asp-controller="Guide" class="btn btn-info">New</a>
+<div class="list-group">
+    @foreach (var guide in Model)
+        {
+        <div class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <a asp-action="Detail" asp-controller="Guide" asp-route-id="@guide.GuideId" class="mb-1 h5">@guide.Title</a>
+                <div>
+                    <a 
+                            class="btn btn-warning"
+                            asp-action="Edit"
+                            asp-controller="Guide"
+                            asp-route-id="@guide.GuideId"
+                            >Edit</a>
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            data-bs-title="@guide.Title"
+                            data-bs-guideId="@guide.GuideId">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <p class="mb-1">@guide.Subtitle</p>
+            <small class="text-body-secondary">@guide.Content</small>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form asp-action="Delete" asp-controller="Guide" method="post" id="deleteForm">
+                    <input type="hidden" name="GuideId" id="modalGuideId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    const deleteModal = document.getElementById('deleteModal')
+    if (deleteModal) {
+        deleteModal.addEventListener('show.bs.modal', event => {
+
+            const button = event.relatedTarget
+
+            const guideId = button.getAttribute('data-bs-guideId')
+            const guideTitle = button.getAttribute('data-bs-title')
+        
+            const modalTitle = deleteModal.querySelector('.modal-title')
+            const modalBody = deleteModal.querySelector('.modal-body')
+            const modalGuideId = deleteModal.querySelector('#modalGuideId')
+            modalGuideId.value = guideId
+            modalTitle.textContent = `Delete Guide ID: "${guideId}"`
+            modalBody.textContent = `Are you sure you want to delete the guide "${guideTitle}"?`
+
+            const deleteForm = document.getElementById('deleteForm')
+            let actionUrl = new URL(deleteForm.action)
+            deleteForm.action = `${actionUrl.pathname}/${guideId}`
+        })
+    }
+</script>
+}

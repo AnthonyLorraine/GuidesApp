@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{07487ACC-4E53-4853-95B8-34014259F14E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{3A961D73-D42D-443C-83CC-4834A635A432}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{41FF41DC-1F70-4A3C-A523-6D1E01A24469}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4D5078A6-84CD-4FCE-9C4A-BACF218BC750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidesApp.Services.GuidesAPI", "GuidesApp.Services.GuidesAPI\GuidesApp.Services.GuidesAPI.csproj", "{2B80E261-58D7-40B9-9654-E21D9B6FA1ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidesApp.Web", "GuidesApp.Web\GuidesApp.Web.csproj", "{913F9B1A-F4C1-41A0-B1B6-BE79C866BAF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidesApp.Services.AuthAPI", "GuidesApp.Services.AuthAPI\GuidesApp.Services.AuthAPI.csproj", "{2D6A6C81-0A66-477E-96ED-46389A7CE9DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B80E261-58D7-40B9-9654-E21D9B6FA1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B80E261-58D7-40B9-9654-E21D9B6FA1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B80E261-58D7-40B9-9654-E21D9B6FA1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B80E261-58D7-40B9-9654-E21D9B6FA1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{913F9B1A-F4C1-41A0-B1B6-BE79C866BAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{913F9B1A-F4C1-41A0-B1B6-BE79C866BAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{913F9B1A-F4C1-41A0-B1B6-BE79C866BAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{913F9B1A-F4C1-41A0-B1B6-BE79C866BAF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6A6C81-0A66-477E-96ED-46389A7CE9DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6A6C81-0A66-477E-96ED-46389A7CE9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6A6C81-0A66-477E-96ED-46389A7CE9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6A6C81-0A66-477E-96ED-46389A7CE9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18C5B762-770B-4C19-82C4-204444D56FDB}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B80E261-58D7-40B9-9654-E21D9B6FA1ED} = {4D5078A6-84CD-4FCE-9C4A-BACF218BC750}
+		{913F9B1A-F4C1-41A0-B1B6-BE79C866BAF8} = {07487ACC-4E53-4853-95B8-34014259F14E}
+		{2D6A6C81-0A66-477E-96ED-46389A7CE9DA} = {4D5078A6-84CD-4FCE-9C4A-BACF218BC750}
+	EndGlobalSection
+EndGlobal

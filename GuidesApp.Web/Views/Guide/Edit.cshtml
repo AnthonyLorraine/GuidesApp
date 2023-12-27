@@ -1,0 +1,21 @@
+﻿@model GuideDto
+
+<form asp-action="Edit" asp-controller="Guide" method="post">
+    <input type="hidden" value="@Model.GuideId">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" type="text" class="form-control" value="@Model.Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Subtitle" class="form-label"></label>
+        <input asp-for="Subtitle" class="form-control" type="text" value="@Model.Subtitle">
+        <span asp-validation-for="Subtitle" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" rows="30" class="form-control" value="@Model.Content"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
