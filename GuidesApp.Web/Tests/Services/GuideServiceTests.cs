@@ -61,7 +61,7 @@ namespace GuidesApp.Web.Tests.Services
             baseServiceMock.Verify(
                 service => service.SendAsync(It.Is<RequestDto>(request =>
                     request.ApiType == StaticDetails.ApiType.PUT &&
-                    request.Url == StaticDetails.GuideAPIBase + "/api/guides" &&
+                    request.Url == StaticDetails.GuideAPIBase + "/api/guides/" + guide.GuideId &&
                     request.Data == guide)),
                 Times.Once); // Ensure it was called exactly once
         }
