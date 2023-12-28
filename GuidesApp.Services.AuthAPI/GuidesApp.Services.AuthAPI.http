@@ -1,7 +1,0 @@
-﻿@GuidesApp.Services.AuthAPI_HostAddress = http://localhost:5118
-
-GET {{GuidesApp.Services.AuthAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
-
