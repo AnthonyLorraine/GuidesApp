@@ -91,7 +91,7 @@ namespace GuidesApp.Services.AuthAPI.Services
                 {
                     throw new Exception("Password is incorrect");
                 }
-
+                
                 UserDto userDto = new()
                 {
                     UserName = user.UserName,

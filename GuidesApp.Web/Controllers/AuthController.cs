@@ -1,19 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GuidesApp.Web.Models;
+using GuidesApp.Web.Service.IService;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GuidesApp.Web.Controllers
 {
     public class AuthController : Controller
     {
-        // GET: /<controller>/
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View(new LoginRequestDto());
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new RegistrationRequestDto());
         }
     }
 }
