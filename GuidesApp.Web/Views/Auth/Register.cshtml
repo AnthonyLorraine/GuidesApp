@@ -1,0 +1,75 @@
+﻿@model RegistrationRequestDto
+
+<div class="container">
+    <div class="card p-4">
+        <h2 class="text-center mb-4">User Registration</h2>
+
+        <form asp-controller="Auth" asp-action="Register" method="post">
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" placeholder="Enter your username" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DisplayName"></label>
+                <input asp-for="DisplayName" type="text" class="form-control" placeholder="Enter your display name" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" autocomplete="off"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PasswordConfirmation"></label>
+                <input asp-for="PasswordConfirmation" type="password" class="form-control" placeholder="Confirm your password" autocomplete="off"/>
+                <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+
+            <div class="text-center mt-3">
+                <p>Already have an account? <a asp-controller="Auth" asp-action="Login">Login</a></p>
+            </div>
+
+            <div id="passwordValidationList"></div>
+        </form>
+    </div>
+</div>
+
+@section Scripts { 
+    <script>
+        function checkPassword() {
+            var password = document.getElementById("Password").value;
+            var confirmPassword = document.getElementById("PasswordConfirmation").value;
+
+            var validationList = document.getElementById("passwordValidationList");
+            validationList.innerHTML = ""; 
+
+            // Password Validators (See CustomPasswordValidator in AuthAPI Service)
+            var validators = [
+                { check: password.length >= 13, message: "Above 13 characters" },
+                { check: password === confirmPassword && password !== "" && confirmPassword !== "", message: "Passwords match" },
+                { check: password.length <= 35, message: "Below 35 characters"},
+                { check: /\d/.test(password), message: "At least one digit"},
+                { check: /[a-z]/.test(password), message: "At least one lowercase letter"},
+                { check: /[A-Z]/.test(password), message: "At least one uppercase letter"},
+                { check: /[^a-zA-Z\d]/.test(password), message: "At least one non-alphanumeric character"}
+            ];
+
+            // Display validation messages
+            validators.forEach(function (validator) {
+                if (!validator.check) {
+                    validationList.innerHTML += '<div class="text-danger"><i class="bi bi-x-circle"></i> ' + validator.message + '</div>';
+                } else {
+                    validationList.innerHTML += '<div class="text-success"><i class="bi bi-check-circle"></i> ' + validator.message + '</div>';
+                }
+            });
+        }
+        checkPassword();
+        document.getElementById("Password").addEventListener("input", checkPassword)
+    </script>
+    }
