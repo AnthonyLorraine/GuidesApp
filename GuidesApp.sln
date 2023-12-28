@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidesApp.Web", "GuidesApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidesApp.Services.AuthAPI", "GuidesApp.Services.AuthAPI\GuidesApp.Services.AuthAPI.csproj", "{2D6A6C81-0A66-477E-96ED-46389A7CE9DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCBDE99B-7019-4E50-8043-EB010B4DC629}"
+	ProjectSection(SolutionItems) = preProject
+		Architecture.mermaid = Architecture.mermaid
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

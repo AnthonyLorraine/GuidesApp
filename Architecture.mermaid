@@ -1,0 +1,52 @@
+﻿flowchart LR
+GuidesWebApp[Guides 
+MVC WebApp
+]
+
+AuthAPI[Auth API]
+AuthDB[(Auth DB)]
+subgraph AuthAPIApp[Auth Service]
+    direction LR
+   AuthAPI --> AuthDB 
+end
+
+GuidesAPI[Guides API]
+GuidesDB[(Guides DB)]
+subgraph GuidesAPIApp[Guides Service]
+    direction LR
+   GuidesAPI --> GuidesDB 
+end
+
+CommentsAPI[Comments API]
+CommentsDB[(Comments DB)]
+subgraph CommentsAPIApp[Comments Service]
+    direction LR
+   CommentsAPI --> CommentsDB 
+end
+
+LikesAPI[Likes API]
+LikesDB[(Likes DB)]
+subgraph LikesAPIApp[Likes Service]
+    direction LR
+   LikesAPI --> LikesDB 
+end
+
+
+Gateway[Gateway]
+subgraph MessageService[RabbitMQ]
+    ServiceBus(((Service Bus)))
+    GuidesAPIApp
+    CommentsAPIApp
+    LikesAPIApp
+end
+
+GuidesWebApp <-- HTTPS:7002 --> AuthAPI
+AuthAPIApp <-...-> ServiceBus
+ServiceBus -...- GuidesAPIApp
+ServiceBus -...- CommentsAPIApp
+ServiceBus -...- LikesAPIApp
+GuidesWebApp --- Gateway
+
+Gateway <-. HTTPS:7001 .-> GuidesAPI
+Gateway <-. HTTPS:7003 .-> CommentsAPI
+Gateway <-. HTTPS:7004 .-> LikesAPI

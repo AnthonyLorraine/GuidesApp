@@ -65,11 +65,13 @@ namespace GuidesApp.Services.GuidesAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
+            #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 var validationErrors = ModelState
                     .Where(x => x.Value.Errors.Any())
                     .ToDictionary(kvp => kvp.Key,
                                   kvp => kvp.Value.Errors
                                   .Select(e => e.ErrorMessage).ToArray());
+            #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 _response.Result = validationErrors;
                 _response.IsSuccess = false;

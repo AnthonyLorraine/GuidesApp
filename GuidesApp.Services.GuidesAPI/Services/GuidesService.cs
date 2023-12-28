@@ -23,14 +23,14 @@ namespace GuidesApp.Services.GuidesAPI.Services
             return await _context.Guides.ToListAsync();
         }
 
-        public async Task<Guide> GetGuideAsync(int id)
+        public async Task<Guide?> GetGuideAsync(int id)
         {
             return await _context.Guides.FindAsync(id);
         }
 
         public async Task<Guide> PostGuideAsync(Guide newGuide)
         {
-            Guide guide = new Guide
+            Guide guide = new()
             {
                 Title = newGuide.Title,
                 Subtitle = newGuide.Subtitle,

@@ -54,7 +54,7 @@ namespace GuidesApp.Services.GuidesAPI.Tests.Services
             context.SaveChanges();
             var service = new GuidesService(context, Mock.Of<ILogger<GuidesService>>());
 
-            Guide guide = await service.GetGuideAsync(1);
+            Guide? guide = await service.GetGuideAsync(1);
 
             Assert.NotNull(guide);
             Assert.Equal(1, guide.GuideId);
@@ -65,7 +65,7 @@ namespace GuidesApp.Services.GuidesAPI.Tests.Services
             using var context = new AppDbContext(_dbContextOptions);
             var service = new GuidesService(context, Mock.Of<ILogger<GuidesService>>());
 
-            Guide guide = await service.GetGuideAsync(999);
+            Guide? guide = await service.GetGuideAsync(999);
 
             Assert.Null(guide);
         }
@@ -109,14 +109,14 @@ namespace GuidesApp.Services.GuidesAPI.Tests.Services
             context.Guides.Add(new Guide { Title = "Test Guide 1", Subtitle = "Subtitle 1", Content = "Content 1" });
             context.SaveChanges();
             var service = new GuidesService(context, Mock.Of<ILogger<GuidesService>>());
-            Guide currentGuide = await service.GetGuideAsync(1);
+            Guide? currentGuide = await service.GetGuideAsync(1);
             Guide updatedGuide = new()
             {
                 Title = "Test Guide 2",
                 Subtitle = "Subtitle 2",
                 Content = "Content 2"
             };
-
+            Assert.NotNull(currentGuide);
             Assert.NotEqual(currentGuide.Title, updatedGuide.Title);
             Assert.NotEqual(currentGuide.Content, updatedGuide.Content);
             Assert.NotEqual(currentGuide.Subtitle, updatedGuide.Subtitle);

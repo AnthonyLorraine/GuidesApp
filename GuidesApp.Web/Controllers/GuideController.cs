@@ -152,7 +152,7 @@ namespace GuidesApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, GuideDto guide)
         {
-            GuideDto updatedGuide = new();
+            GuideDto? updatedGuide = new();
             guide.GuideId = id;
 
             try
@@ -163,6 +163,7 @@ namespace GuidesApp.Web.Controllers
                 if (response != null && response.IsSuccess)
                 {
                     string? resultJson = Convert.ToString(response.Result);
+            
                     if (!string.IsNullOrEmpty(resultJson))
                     {
                         updatedGuide = JsonConvert.DeserializeObject<GuideDto>(resultJson);

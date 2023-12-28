@@ -25,6 +25,11 @@ namespace GuidesApp.Web.Service
                 message.Headers.Add("Accept", "application/json");
                 // token
 
+                if (requestDto.Url == null)
+                {
+                    throw new Exception("Request URL is null");
+                }
+
                 message.RequestUri = new Uri(requestDto.Url);
                 if (requestDto.Data != null)
                 {
