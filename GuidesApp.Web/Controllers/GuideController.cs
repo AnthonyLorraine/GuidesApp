@@ -1,5 +1,5 @@
 ﻿using GuidesApp.Web.Models;
-using GuidesApp.Web.Service;
+using GuidesApp.Web.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

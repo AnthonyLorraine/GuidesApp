@@ -53,5 +53,44 @@ namespace GuidesApp.Services.AuthAPI.Controllers
 
             return StatusCode(statusCode, _response);
         }
+
+        [HttpPost("AssignRole")]
+        public async Task<IActionResult> AssignRole([FromBody] RoleAssignRequestDto roleAssignRequestDto)
+        {
+            int statusCode = StatusCodes.Status500InternalServerError;
+            ResponseDto roleAssignResponse = await _authService.AssignRole(roleAssignRequestDto.UserName, roleAssignRequestDto.RoleName);
+
+            if (!roleAssignResponse.IsSuccess)
+            {
+                _response.IsSuccess = false;
+                _response.Message = roleAssignResponse.Message;
+            } else
+            {
+                statusCode = StatusCodes.Status200OK;
+                _response.Result = roleAssignResponse.Result;
+            }
+
+            return StatusCode(statusCode, _response);
+        }
+        [HttpPost("CreateRole")]
+        public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequestDto createRoleRequestDto)
+        {
+            int statusCode = StatusCodes.Status500InternalServerError;
+            ResponseDto createRoleResponse = await _authService.CreateRole(createRoleRequestDto.RoleName);
+
+            if (!createRoleResponse.IsSuccess)
+            {
+                _response.IsSuccess = false;
+                _response.Message = createRoleResponse.Message;
+            }
+            else
+            {
+                statusCode = StatusCodes.Status200OK;
+                _response.Result = createRoleResponse.Result;
+                _response.Message = createRoleResponse.Message;
+            }
+
+            return StatusCode(statusCode, _response);
+        }
     }
 }

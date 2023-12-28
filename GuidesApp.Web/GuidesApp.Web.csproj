@@ -18,6 +18,9 @@
     <None Remove="Views\Guide\" />
     <None Remove="Tests\" />
     <None Remove="Tests\Services\" />
+    <None Remove="Models\AuthDto\" />
+    <None Remove="Models\GuideDto\" />
+    <None Remove="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\" />
@@ -26,6 +29,9 @@
     <Folder Include="Views\Guide\" />
     <Folder Include="Tests\" />
     <Folder Include="Tests\Services\" />
+    <Folder Include="Models\AuthDto\" />
+    <Folder Include="Models\GuideDto\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

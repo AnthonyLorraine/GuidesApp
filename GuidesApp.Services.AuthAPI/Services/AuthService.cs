@@ -26,6 +26,55 @@ namespace GuidesApp.Services.AuthAPI.Services
             _jwtTokenGenerator = jwtTokenGenerator;
         }
 
+        public async Task<ResponseDto> AssignRole(string userName, string roleName)
+        {
+            ResponseDto responseDto = new();
+
+            try
+            { 
+                ApplicationUser? user = _context.ApplicationUsers
+                        .FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower());
+
+                bool roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (user == null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                if (!roleExists)
+                {
+                    throw new Exception("Invalid role name specified");
+                }
+            
+                await _userManager.AddToRoleAsync(user, roleName);
+            } catch (Exception ex) {
+                responseDto.IsSuccess = false;
+                responseDto.Message = ex.Message;
+            }
+            return responseDto;
+        }
+
+        public async Task<ResponseDto> CreateRole(string roleName)
+        {
+            ResponseDto responseDto = new();
+            try { 
+                bool roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (!roleExists)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+                } else {
+                    responseDto.Message = "Role already exists";
+                }
+            } catch (Exception ex)
+            {
+                responseDto.IsSuccess = false;
+                responseDto.Message = ex.Message;
+            }
+            return responseDto;
+        }
+
         public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
             LoginResponseDto loginResponseDto = new();

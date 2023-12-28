@@ -9,11 +9,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<IGuideService, GuideService>();
+builder.Services.AddHttpClient<IAuthService, AuthService>();
 
 StaticDetails.GuideAPIBase = builder.Configuration["ServiceUrls:GuideUrl"];
+StaticDetails.AuthAPIBase = builder.Configuration["ServiceUrls:AuthUrl"];
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IGuideService, GuideService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

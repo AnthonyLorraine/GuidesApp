@@ -1,7 +1,7 @@
 ﻿using System;
 using GuidesApp.Web.Models;
 
-namespace GuidesApp.Web.Service
+namespace GuidesApp.Web.Service.IService
 {
 	public interface IGuideService
 	{
