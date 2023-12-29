@@ -4,7 +4,7 @@
     <div class="card p-4">
         <h2 class="text-center mb-4">User Registration</h2>
 
-        <form asp-controller="Auth" asp-action="Register" method="post">
+        <form method="post">
             <div class="form-group">
                 <label asp-for="UserName"></label>
                 <input asp-for="UserName" class="form-control" placeholder="Enter your username" />
@@ -19,13 +19,13 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" autocomplete="off"/>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" autocomplete="off" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="PasswordConfirmation"></label>
-                <input asp-for="PasswordConfirmation" type="password" class="form-control" placeholder="Confirm your password" autocomplete="off"/>
+                <input asp-for="PasswordConfirmation" type="password" class="form-control" placeholder="Confirm your password" autocomplete="off" />
                 <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
             </div>
 
@@ -42,34 +42,60 @@
 
 @section Scripts { 
     <script>
-        function checkPassword() {
-            var password = document.getElementById("Password").value;
-            var confirmPassword = document.getElementById("PasswordConfirmation").value;
+        var initialised = false;
 
+        const validatePassword = () => {
+            var passwordElement = document.getElementById("Password")
+            var password = passwordElement.value;
+            var confirmPasswordElement = document.getElementById("PasswordConfirmation")
+            var confirmPassword = confirmPasswordElement.value;
             var validationList = document.getElementById("passwordValidationList");
-            validationList.innerHTML = ""; 
+            validationList.innerHTML = "";
+
+
+            const passwordFieldsEmtpy = () => {
+                return password === "" && confirmPassword === ""
+            }
+
 
             // Password Validators (See CustomPasswordValidator in AuthAPI Service)
             var validators = [
                 { check: password.length >= 13, message: "Above 13 characters" },
-                { check: password === confirmPassword && password !== "" && confirmPassword !== "", message: "Passwords match" },
-                { check: password.length <= 35, message: "Below 35 characters"},
-                { check: /\d/.test(password), message: "At least one digit"},
-                { check: /[a-z]/.test(password), message: "At least one lowercase letter"},
-                { check: /[A-Z]/.test(password), message: "At least one uppercase letter"},
-                { check: /[^a-zA-Z\d]/.test(password), message: "At least one non-alphanumeric character"}
+                { check: password === confirmPassword && !passwordFieldsEmtpy(), message: "Passwords match" },
+                { check: password.length <= 35 && !passwordFieldsEmtpy(), message: "Below 35 characters" },
+                { check: /\d/.test(password), message: "At least one digit" },
+                { check: /[a-z]/.test(password), message: "At least one lowercase letter" },
+                { check: /[A-Z]/.test(password), message: "At least one uppercase letter" },
+                { check: /[^a-zA-Z\d]/.test(password), message: "At least one non-alphanumeric character" }
             ];
 
-            // Display validation messages
-            validators.forEach(function (validator) {
-                if (!validator.check) {
-                    validationList.innerHTML += '<div class="text-danger"><i class="bi bi-x-circle"></i> ' + validator.message + '</div>';
-                } else {
-                    validationList.innerHTML += '<div class="text-success"><i class="bi bi-check-circle"></i> ' + validator.message + '</div>';
-                }
-            });
+            console.log("validating password", initialised)
+            validators.map(v => {
+                console.log(v)
+            })
+
+            if (!initialised) {
+                // Initial validation list state
+                validators.forEach((validator) => {
+                    validationList.innerHTML += '<div class="text-muted"><i class="bi bi-info-circle"></i> ' + validator.message + '</div>';
+                });
+                initialised = true;
+            } else { 
+                // Display validation messages
+                validators.forEach((validator) => {
+                    if (!validator.check) {
+                        validationList.innerHTML += '<div class="text-danger"><i class="bi bi-x-circle"></i> ' + validator.message + '</div>';
+                    } else {
+                        validationList.innerHTML += '<div class="text-success"><i class="bi bi-check-circle"></i> ' + validator.message + '</div>';
+                    }
+
+                });
+            }
+            
         }
-        checkPassword();
-        document.getElementById("Password").addEventListener("input", checkPassword)
+
+        document.getElementById("Password").addEventListener("input", validatePassword)
+        validatePassword()
+
     </script>
     }

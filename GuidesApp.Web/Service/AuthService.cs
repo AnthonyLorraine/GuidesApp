@@ -19,7 +19,7 @@ namespace GuidesApp.Web.Service
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = StaticDetails.ApiType.POST,
-                Url = StaticDetails.GuideAPIBase + "/api/Auth/AssignRole",
+                Url = StaticDetails.AuthAPIBase + "/api/Auth/AssignRole",
                 Data = assignRequestDto
             });
         }
@@ -29,7 +29,7 @@ namespace GuidesApp.Web.Service
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = StaticDetails.ApiType.POST,
-                Url = StaticDetails.GuideAPIBase + "/api/Auth/CreateRole",
+                Url = StaticDetails.AuthAPIBase + "/api/Auth/CreateRole",
                 Data = createRoleRequestDto
             });
         }
@@ -39,7 +39,7 @@ namespace GuidesApp.Web.Service
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = StaticDetails.ApiType.POST,
-                Url = StaticDetails.GuideAPIBase + "/api/Auth/Login",
+                Url = StaticDetails.AuthAPIBase + "/api/Auth/Login",
                 Data = loginRequestDto
             });
         }
@@ -49,7 +49,7 @@ namespace GuidesApp.Web.Service
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = StaticDetails.ApiType.POST,
-                Url = StaticDetails.GuideAPIBase + "/api/Auth/Register",
+                Url = StaticDetails.AuthAPIBase + "/api/Auth/Register",
                 Data = registrationRequestDto
             });
         }

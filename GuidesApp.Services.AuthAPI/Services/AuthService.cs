@@ -24,6 +24,7 @@ namespace GuidesApp.Services.AuthAPI.Services
             _userManager = userManager;
             _roleManager = roleManager;
             _jwtTokenGenerator = jwtTokenGenerator;
+
         }
 
         public async Task<ResponseDto> AssignRole(string userName, string roleName)
@@ -100,7 +101,8 @@ namespace GuidesApp.Services.AuthAPI.Services
                 };
 
                 loginResponseDto.User = userDto;
-                loginResponseDto.Token = _jwtTokenGenerator.GenerateToken(user);
+                IList<string> roles = await _userManager.GetRolesAsync(user);
+                loginResponseDto.Token = _jwtTokenGenerator.GenerateToken(user, roles);
 
             } catch (Exception ex) {
                 loginResponseDto.Message = ex.Message;
@@ -111,7 +113,7 @@ namespace GuidesApp.Services.AuthAPI.Services
 
             return loginResponseDto;
         }
-
+       
         public async Task<RegistrationResponseDto> Register(RegistrationRequestDto registrationRequestDto)
         {
             RegistrationResponseDto registrationResponseDto = new();

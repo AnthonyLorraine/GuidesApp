@@ -1,13 +1,23 @@
 ﻿using GuidesApp.Web.Service;
 using GuidesApp.Web.Service.IService;
 using GuidesApp.Web.Utility;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+        options.LoginPath = "/Auth/Login";
+        options.LogoutPath = "/Auth/Login";
+    });
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddHttpClient<IGuideService, GuideService>();
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 
@@ -32,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
