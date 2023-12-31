@@ -1,5 +1,6 @@
 ﻿using GuidesApp.Web.Models;
 using GuidesApp.Web.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -14,6 +15,7 @@ namespace GuidesApp.Web.Controllers
             _guideService = guideService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             List<GuideDto>? guides = new();
@@ -43,6 +45,7 @@ namespace GuidesApp.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(int id)
         {
             GuideDto? guide = new();

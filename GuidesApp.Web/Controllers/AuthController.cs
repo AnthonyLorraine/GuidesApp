@@ -1,15 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using GuidesApp.Web.Models;
 using GuidesApp.Web.Service.IService;
 using GuidesApp.Web.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Newtonsoft.Json;
 
 namespace GuidesApp.Web.Controllers
@@ -30,12 +27,14 @@ namespace GuidesApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View(new LoginRequestDto());
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginRequestDto loginRequestDto)
         {
             LoginResponseDto? loginResponseDto = new();
@@ -89,6 +88,7 @@ namespace GuidesApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View(new RegistrationRequestDto());
@@ -98,7 +98,7 @@ namespace GuidesApp.Web.Controllers
         {
             await HttpContext.SignOutAsync();
             _tokenProvider.ClearToken();
-            return RedirectToAction("Login", "Auth", new LoginRequestDto());
+            return RedirectToAction("Index", "Home", new LoginRequestDto());
         }
 
         private bool ResponseIsSuccessful(ResponseDto responseDto)
@@ -117,10 +117,12 @@ namespace GuidesApp.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegistrationRequestDto registrationRequestDto)
         {
             if (!ModelState.IsValid) return View();
-
+            // Tester1
+            // Abcdefghijklmnopqrstuvwxyz1!
             // Register user
             ResponseDto? registerAsyncResponse = await _authService.RegisterAsync(registrationRequestDto);
 
@@ -138,6 +140,7 @@ namespace GuidesApp.Web.Controllers
                 RoleName = StaticDetails.RoleCustomer
             };
             await _authService.AssignRoleAsync(roleAssignRequestDto);
+
 
             // Log in the newly registered user
             LoginRequestDto loginRequestDto = new()

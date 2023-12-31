@@ -8,20 +8,22 @@
             <div class="d-flex w-100 justify-content-between">
                 <a asp-action="Detail" asp-controller="Guide" asp-route-id="@guide.GuideId" class="mb-1 h5">@guide.Title</a>
                 <div>
-                    <a 
-                            class="btn btn-warning"
-                            asp-action="Edit"
-                            asp-controller="Guide"
-                            asp-route-id="@guide.GuideId"
-                            >Edit</a>
-                    <button type="button"
-                            class="btn btn-danger"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            data-bs-title="@guide.Title"
-                            data-bs-guideId="@guide.GuideId">
-                        Delete
-                    </button>
+                    @{ if (User.IsInRole(GuidesApp.Web.Utility.StaticDetails.RoleAdmin))
+                        {
+                            <a class="btn btn-warning"
+                               asp-action="Edit"
+                               asp-controller="Guide"
+                               asp-route-id="@guide.GuideId">Edit</a>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    data-bs-title="@guide.Title"
+                                    data-bs-guideId="@guide.GuideId">
+                                Delete
+                            </button>
+                            }
+                        }
                 </div>
             </div>
             <p class="mb-1">@guide.Subtitle</p>
@@ -34,7 +36,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteModalLabel">New message</h1>
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Guide</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

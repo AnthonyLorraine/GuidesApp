@@ -45,7 +45,7 @@ namespace GuidesApp.Services.AuthAPI.Services
 
                 if (!roleExists)
                 {
-                    throw new Exception("Invalid role name specified");
+                    await CreateRole(roleName);
                 }
             
                 await _userManager.AddToRoleAsync(user, roleName);
@@ -108,8 +108,6 @@ namespace GuidesApp.Services.AuthAPI.Services
                 loginResponseDto.Message = ex.Message;
                 loginResponseDto.IsSuccess = false;
             }
-
-
 
             return loginResponseDto;
         }
