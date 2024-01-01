@@ -111,7 +111,7 @@ namespace GuidesApp.Services.GuidesAPI.Tests.Services
             context.SaveChanges();
             var service = new GuidesService(context, Mock.Of<ILogger<GuidesService>>());
             Guide? currentGuide = await service.GetGuideAsync(1);
-            Guide updatedGuide = new()
+            UpdateGuideDto updatedGuide = new()
             {
                 Title = "Test Guide 2",
                 Subtitle = "Subtitle 2",

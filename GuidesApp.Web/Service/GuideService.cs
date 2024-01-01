@@ -52,7 +52,7 @@ namespace GuidesApp.Web.Service
             });
         }
 
-        public async Task<ResponseDto?> UpdateGuideAsync(GuideDto guide)
+        public async Task<ResponseDto?> UpdateGuideAsync(UpdateGuideDto guide)
         {
             return await _baseService.SendAsync(new RequestDto()
             {

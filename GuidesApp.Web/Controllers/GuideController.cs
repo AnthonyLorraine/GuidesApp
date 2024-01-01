@@ -1,4 +1,5 @@
-﻿using GuidesApp.Web.Models;
+﻿using System.Security.Claims;
+using GuidesApp.Web.Models;
 using GuidesApp.Web.Service.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace GuidesApp.Web.Controllers
    
     public class GuideController : Controller
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGuideService _guideService;
-        public GuideController(IGuideService guideService)
+        public GuideController(IGuideService guideService, IHttpContextAccessor httpContextAccessor)
         {
             _guideService = guideService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [AllowAnonymous]
@@ -85,6 +88,7 @@ namespace GuidesApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateGuideDto guide)
         {
+            guide.CreatedBy = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             GuideDto? newGuide = new();
             try
             {
@@ -134,6 +138,7 @@ namespace GuidesApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+
             GuideDto? guide = new();
 
             ResponseDto? response = await _guideService.GetGuideByIdAsync(id);
@@ -153,8 +158,9 @@ namespace GuidesApp.Web.Controllers
             return View(guide);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, GuideDto guide)
+        public async Task<IActionResult> Edit(int id, UpdateGuideDto guide)
         {
+            guide.LastModifiedBy = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             GuideDto? updatedGuide = new();
             guide.GuideId = id;
 

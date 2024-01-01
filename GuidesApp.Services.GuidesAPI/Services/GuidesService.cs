@@ -42,11 +42,12 @@ namespace GuidesApp.Services.GuidesAPI.Services
             return guide;
         }
 
-        public async Task<Guide?> PutGuideAsync(Guide currentGuide, Guide updatedGuide)
+        public async Task<Guide?> PutGuideAsync(Guide currentGuide, UpdateGuideDto updatedGuide)
         {
             currentGuide.Title = updatedGuide.Title;
             currentGuide.Subtitle = updatedGuide.Subtitle;
             currentGuide.Content = updatedGuide.Content;
+            currentGuide.LastModifiedBy = updatedGuide.LastModifiedBy;
 
             int recordsUpdatedCount = await _context.SaveChangesAsync();
             if (recordsUpdatedCount < 1)

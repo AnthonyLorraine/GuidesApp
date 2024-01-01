@@ -43,7 +43,7 @@ namespace GuidesApp.Web.Tests.Services
             var baseServiceMock = new Mock<IBaseService>();
             var guideService = new GuideService(baseServiceMock.Object);
 
-            var guide = new GuideDto { /* initialize guide properties */ };
+            var guide = new UpdateGuideDto { /* initialize guide properties */ };
 
             // Expectation: The SendAsync method should be called with the correct RequestDto, including the PUT method.
             baseServiceMock.Setup(service => service.SendAsync(It.IsAny<RequestDto>()))

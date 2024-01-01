@@ -95,7 +95,7 @@ namespace GuidesApp.Services.GuidesAPI.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseDto>> PutAsync(int id, [FromBody]Guide updatedGuide)
+        public async Task<ActionResult<ResponseDto>> PutAsync(int id, [FromBody]UpdateGuideDto updatedGuide)
         {
             var currentGuide = await _guideService.GetGuideAsync(id);
 
@@ -108,7 +108,7 @@ namespace GuidesApp.Services.GuidesAPI.Controllers
 
 
             _response.Result = await _guideService.PutGuideAsync(currentGuide, updatedGuide);
-                ;
+                
             return Ok(_response);
         }
 
