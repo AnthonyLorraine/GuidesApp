@@ -1,5 +1,4 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using GuidesApp.Web.Models;
 using GuidesApp.Web.Service.IService;
 using Microsoft.AspNetCore.Authorization;

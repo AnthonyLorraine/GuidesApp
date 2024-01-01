@@ -1,11 +1,25 @@
 ﻿@using Humanizer
 @model List<GuidesApp.Web.Models.GuideDto>
+@{
+    string? currentUserId = User.FindFirst(claim => claim.Type == System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub).Value;
+}
 <section class="row">
-    <header>Title</header>
-    <a asp-action="Create" asp-controller="Guide" class="btn btn-info">New</a>
+    <header class="h1 mb-3">Guides</header>
+    
     <main class="col">
         @foreach (var guide in Model)
-        {
+            {
+
+                string perthTimeZoneId = "Australia/Perth";
+                TimeZoneInfo perthTimeZone = TimeZoneInfo.FindSystemTimeZoneById(perthTimeZoneId);
+                DateTime localCreatedDateTime = TimeZoneInfo.ConvertTimeFromUtc(guide.CreatedDateTime, perthTimeZone);
+                DateTime now = DateTime.UtcNow;
+                DateTime dateTime = guide.LastModifiedDateTime;
+                TimeSpan dateDifference = now - dateTime;
+                string humanLastModified = now.AddSeconds(-dateDifference.TotalSeconds).Humanize();
+   
+
+
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -14,9 +28,10 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h3 class="card-title">@guide.Title</h3>
-                            <h5 class="small text-muted mb-3">By @guide.CreatedByDisplayName<span class="ms-3"></span>@guide.CreatedDateTime</h5>
+                            <h5 class="small text-muted mb-3">By @guide.CreatedByDisplayName<span class="ms-3"></span>@localCreatedDateTime.ToString("MMM. d, yyyy h:mm tt")</h5>
                             <p class="card-text">@guide.Subtitle</p>
-                            <p class="card-text"><small class="text-body-secondary">Last updated @guide.LastModifiedDateTime</small></p>
+
+                            <p class="card-text"><small class="text-body-secondary">Last updated @humanLastModified</small></p>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
@@ -24,7 +39,7 @@
                             Likes 280  **** stars etc
                         </div>
                         <div>
-                            @{ if (User.IsInRole(GuidesApp.Web.Utility.StaticDetails.RoleAdmin))
+                            @{ if (User.IsInRole(GuidesApp.Web.Utility.StaticDetails.RoleAdmin) || currentUserId == guide.CreatedBy)
                                 {
                                     <a class="btn btn-warning"
                                        asp-action="Edit"
@@ -40,7 +55,7 @@
                                     </button>
                                 }
                             }
-                            <button class="btn btn-primary">Read</button>
+                            <a class="btn btn-primary" asp-controller="Guide" asp-action="Detail" asp-route-id="@guide.GuideId">Read</a>
                         </div>
                     </div>
                 </div>

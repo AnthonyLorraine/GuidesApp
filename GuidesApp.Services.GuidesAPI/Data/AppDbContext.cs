@@ -11,9 +11,9 @@ namespace GuidesApp.Services.GuidesAPI.Data
 		}
 		public DbSet<Guide> Guides { get; set; }
 
-        public override int SaveChanges()
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entries = ChangeTracker.Entries()
+           var entries = ChangeTracker.Entries()
            .Where(e => e.Entity is Guide &&
                        (e.State == EntityState.Added || e.State == EntityState.Modified));
 
@@ -29,8 +29,10 @@ namespace GuidesApp.Services.GuidesAPI.Data
 
                 entity.LastModifiedDateTime = now;
             }
-            return base.SaveChanges();
+            return base.SaveChangesAsync(cancellationToken);
+
         }
+
     }
 }
 
