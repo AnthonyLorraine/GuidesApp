@@ -18,7 +18,7 @@ namespace GuidesApp.Services.GuidesAPI.Migrations
                     GuideId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    Subtitle = table.Column<string>(type: "text", nullable: false),
+                    Subtitle = table.Column<string>(type: "text", nullable: true),
                     Content = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

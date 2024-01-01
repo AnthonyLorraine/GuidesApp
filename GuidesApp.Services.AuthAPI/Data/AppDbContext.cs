@@ -12,7 +12,10 @@ namespace GuidesApp.Services.AuthAPI.Data
 
 		}
 
+		
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+		 
     }
 }
 
