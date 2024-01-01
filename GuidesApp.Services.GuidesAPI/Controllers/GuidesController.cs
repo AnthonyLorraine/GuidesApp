@@ -61,7 +61,7 @@ namespace GuidesApp.Services.GuidesAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<ActionResult<ResponseDto>> Post([FromBody] Guide newGuide)
+        public async Task<ActionResult<ResponseDto>> Post([FromBody] CreateGuideDto newGuide)
         {
             if (!ModelState.IsValid)
             {

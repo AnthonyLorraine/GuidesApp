@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace GuidesApp.Services.GuidesAPI.Models.Dto
 {
     public class GuideDto
@@ -15,9 +17,13 @@ namespace GuidesApp.Services.GuidesAPI.Models.Dto
 
     public class CreateGuideDto
     {
+        [Required]
         public string? Title { get; set; }
+        [Required]
         public string? Subtitle { get; set; }
+        [Required]
         public string? Content { get; set; }
+        [Required]
         public string? CreatedBy { get; set; }
     }
 

@@ -15,7 +15,7 @@ namespace GuidesApp.Web.Service
             _baseService = baseService;
 		}
 
-        public async Task<ResponseDto?> CreateGuideAsync(GuideDto guide)
+        public async Task<ResponseDto?> CreateGuideAsync(CreateGuideDto guide)
         {
             return await _baseService.SendAsync(new RequestDto()
             {

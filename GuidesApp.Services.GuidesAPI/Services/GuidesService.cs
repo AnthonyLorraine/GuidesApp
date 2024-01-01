@@ -28,13 +28,14 @@ namespace GuidesApp.Services.GuidesAPI.Services
             return await _context.Guides.FindAsync(id);
         }
 
-        public async Task<Guide> PostGuideAsync(Guide newGuide)
+        public async Task<Guide> PostGuideAsync(CreateGuideDto newGuide)
         {
             Guide guide = new()
             {
                 Title = newGuide.Title,
                 Subtitle = newGuide.Subtitle,
-                Content = newGuide.Content
+                Content = newGuide.Content,
+                CreatedBy = newGuide.CreatedBy
             };
             await _context.AddAsync(guide);
             await _context.SaveChangesAsync();

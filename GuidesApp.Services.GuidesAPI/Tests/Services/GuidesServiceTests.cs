@@ -1,5 +1,6 @@
 ﻿using GuidesApp.Services.GuidesAPI.Data;
 using GuidesApp.Services.GuidesAPI.Models;
+using GuidesApp.Services.GuidesAPI.Models.Dto;
 using GuidesApp.Services.GuidesAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -75,7 +76,7 @@ namespace GuidesApp.Services.GuidesAPI.Tests.Services
             using var context = new AppDbContext(_dbContextOptions);
             var service = new GuidesService(context, Mock.Of<ILogger<GuidesService>>());
 
-            Guide guide = new()
+            CreateGuideDto guide = new()
             {
                 Title = "Test Title",
                 Subtitle = "Test Subtitle",
@@ -94,7 +95,7 @@ namespace GuidesApp.Services.GuidesAPI.Tests.Services
             using var context = new AppDbContext(_dbContextOptions);
             var service = new GuidesService(context, Mock.Of<ILogger<GuidesService>>());
 
-            Guide guide = new()
+            CreateGuideDto guide = new()
             {
                 Subtitle = "Test Subtitle",
                 Content = "Test Content"

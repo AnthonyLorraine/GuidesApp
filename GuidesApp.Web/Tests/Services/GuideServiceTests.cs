@@ -16,7 +16,7 @@ namespace GuidesApp.Web.Tests.Services
             var baseServiceMock = new Mock<IBaseService>();
             var guideService = new GuideService(baseServiceMock.Object);
 
-            var guide = new GuideDto { Content = "New Guide", Title = "New Guide Title", Subtitle = "Subtitle New"};
+            var guide = new CreateGuideDto { Content = "New Guide", Title = "New Guide Title", Subtitle = "Subtitle New"};
 
             baseServiceMock.Setup(service => service.SendAsync(It.IsAny<RequestDto>()))
                 .ReturnsAsync(new ResponseDto { IsSuccess = true, Message = "Guide created successfully" });

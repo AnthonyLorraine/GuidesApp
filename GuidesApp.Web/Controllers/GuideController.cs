@@ -83,7 +83,7 @@ namespace GuidesApp.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GuideDto guide)
+        public async Task<IActionResult> Create(CreateGuideDto guide)
         {
             GuideDto? newGuide = new();
             try
