@@ -1,4 +1,5 @@
-﻿@model List<GuidesApp.Web.Models.GuideDto>
+﻿@using Humanizer
+@model List<GuidesApp.Web.Models.GuideDto>
 
 <a asp-action="Create" asp-controller="Guide" class="btn btn-info">New</a>
 <div class="list-group">
@@ -22,12 +23,16 @@
                                     data-bs-guideId="@guide.GuideId">
                                 Delete
                             </button>
-                            }
                         }
+                    }
                 </div>
             </div>
             <p class="mb-1">@guide.Subtitle</p>
             <small class="text-body-secondary">@guide.Content</small>
+            <small>@guide.CreatedByDisplayName</small>
+            <small>@guide.CreatedDateTime.Humanize()</small>
+            <small>@guide.LastModifiedByDisplayName</small>
+            <small>@guide.LastModifiedDateTime.Humanize()</small>
         </div>
     }
 </div>

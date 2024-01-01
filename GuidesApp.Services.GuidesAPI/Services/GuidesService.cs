@@ -35,7 +35,8 @@ namespace GuidesApp.Services.GuidesAPI.Services
                 Title = newGuide.Title,
                 Subtitle = newGuide.Subtitle,
                 Content = newGuide.Content,
-                CreatedBy = newGuide.CreatedBy
+                CreatedBy = newGuide.CreatedBy,
+                CreatedByDisplayName = newGuide.CreatedByDisplayName
             };
             await _context.AddAsync(guide);
             await _context.SaveChangesAsync();
@@ -48,6 +49,7 @@ namespace GuidesApp.Services.GuidesAPI.Services
             currentGuide.Subtitle = updatedGuide.Subtitle;
             currentGuide.Content = updatedGuide.Content;
             currentGuide.LastModifiedBy = updatedGuide.LastModifiedBy;
+            currentGuide.LastModifiedByDisplayName = updatedGuide.LastModifiedByDisplayName;
 
             int recordsUpdatedCount = await _context.SaveChangesAsync();
             if (recordsUpdatedCount < 1)

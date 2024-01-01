@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using GuidesApp.Web.Models;
 using GuidesApp.Web.Service.IService;
 using Microsoft.AspNetCore.Authorization;
@@ -39,7 +40,9 @@ namespace GuidesApp.Web.Controllers
                         throw new Exception("Response result contains no data.");
                     }
                 }
-                
+
+
+
                 return View(guides);
             }
             catch (Exception)
@@ -88,7 +91,12 @@ namespace GuidesApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateGuideDto guide)
         {
-            guide.CreatedBy = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            guide.CreatedBy = _httpContextAccessor.HttpContext.User.Claims
+                .Where(claim => claim.Type == JwtRegisteredClaimNames.Sub)
+                .First().Value;
+            guide.CreatedByDisplayName = _httpContextAccessor.HttpContext.User.Claims
+                .Where(claim => claim.Type == JwtRegisteredClaimNames.Name)
+                .First().Value;
             GuideDto? newGuide = new();
             try
             {
@@ -160,7 +168,14 @@ namespace GuidesApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, UpdateGuideDto guide)
         {
-            guide.LastModifiedBy = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            guide.LastModifiedBy = _httpContextAccessor.HttpContext.User.Claims
+                .Where(claim => claim.Type == JwtRegisteredClaimNames.Sub)
+                .First().Value;
+
+            guide.LastModifiedByDisplayName = _httpContextAccessor.HttpContext.User.Claims
+                .Where(claim => claim.Type == JwtRegisteredClaimNames.Name)
+                .First().Value;
+
             GuideDto? updatedGuide = new();
             guide.GuideId = id;
 

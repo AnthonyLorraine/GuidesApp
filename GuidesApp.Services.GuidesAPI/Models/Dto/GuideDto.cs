@@ -10,7 +10,9 @@ namespace GuidesApp.Services.GuidesAPI.Models.Dto
         public string? Subtitle { get; set; }
         public string? Content { get; set; }
         public string? CreatedBy { get; set; }
+        public string? CreatedByDisplayName { get; set; }
         public string? LastModifiedBy { get; set; }
+        public string? LastModifiedByDisplayName { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime LastModifiedDateTime { get; set; }
     }
@@ -25,6 +27,7 @@ namespace GuidesApp.Services.GuidesAPI.Models.Dto
         public string? Content { get; set; }
         [Required]
         public string? CreatedBy { get; set; }
+        public string? CreatedByDisplayName { get; set; }
     }
 
     public class UpdateGuideDto
@@ -34,6 +37,6 @@ namespace GuidesApp.Services.GuidesAPI.Models.Dto
         public string? Subtitle { get; set; }
         public string? Content { get; set; }
         public string? LastModifiedBy { get; set; }
+        public string? LastModifiedByDisplayName { get; set; }
     }
 }
-
